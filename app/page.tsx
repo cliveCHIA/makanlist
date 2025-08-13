@@ -124,8 +124,7 @@ const SAMPLE_DATA = {
 // ---------- HELPERS ----------
 // ---------- HELPERS ----------
 function classNames(
-  ...arr: Array<string | false | null | undefined>
-) {
+  function classNames(...arr: Array<string | false | null | undefined>) {
   return arr.filter(Boolean).join(" ");
 }
 
