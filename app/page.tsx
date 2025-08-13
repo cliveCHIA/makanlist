@@ -1,8 +1,7 @@
-'use client';
-'use client';
-import React, { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, MapPin, Star, ExternalLink, Filter } from 'lucide-react';
+'use client'
+import React, { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { Search, MapPin, Star, ExternalLink, Filter } from "lucide-react";
 
 /**
  * Singapore F&B Listicle Site – Starter
@@ -21,125 +20,127 @@ import { Search, MapPin, Star, ExternalLink, Filter } from 'lucide-react';
 // ---------- SAMPLE CONTENT (Edit me) ----------
 const SAMPLE_DATA = {
   brand: {
-    name: 'MakanList',
-    tagline: 'Find great eats across Singapore, fast.',
-    primaryColor: '#0ea5e9', // tailwind sky-500
+    name: "MakanList",
+    tagline: "Find great eats across Singapore, fast.",
+    primaryColor: "#0ea5e9", // tailwind sky-500
   },
   affiliates: {
     // Put your affiliate params here
     klook: {
-      base: 'https://www.klook.com/en-SG/',
-      utm: '?aid=YOUR_AFFILIATE_ID&aff_adid=LISTICLE2025',
+      base: "https://www.klook.com/en-SG/",
+      utm: "?aid=YOUR_AFFILIATE_ID&aff_adid=LISTICLE2025",
     },
     chope: {
-      base: 'https://www.chope.co/singapore-restaurants/',
-      utm: '?utm_source=your-site&utm_medium=affiliate',
+      base: "https://www.chope.co/singapore-restaurants/",
+      utm: "?utm_source=your-site&utm_medium=affiliate",
     },
   },
-  areas: ['Orchard', 'Bugis', 'Tiong Bahru', 'Katong', 'CBD', 'Novena'],
+  areas: ["Orchard", "Bugis", "Tiong Bahru", "Katong", "CBD", "Novena"],
   cuisines: [
-    'Japanese',
-    'Korean',
-    'Chinese',
-    'Malay',
-    'Indian',
-    'Western',
-    'Vegan',
-    'Seafood',
-    'Desserts',
+    "Japanese",
+    "Korean",
+    "Chinese",
+    "Malay",
+    "Indian",
+    "Western",
+    "Vegan",
+    "Seafood",
+    "Desserts",
   ],
   venues: [
     {
-      id: 'ramen-orchard-01',
-      name: 'Ramen Gokoro',
-      area: 'Orchard',
-      cuisine: 'Japanese',
+      id: "ramen-orchard-01",
+      name: "Ramen Gokoro",
+      area: "Orchard",
+      cuisine: "Japanese",
       price: 2, // 1=$, 2=$$, 3=$$$
       rating: 4.5,
-      blurb: 'Rich tonkotsu, springy noodles, under $15 lunch sets.',
+      blurb: "Rich tonkotsu, springy noodles, under $15 lunch sets.",
       image:
-        'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1600&auto=format&fit=crop',
+        "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1600&auto=format&fit=crop",
       affiliate: {
-        label: 'Book on Klook',
-        url: 'https://www.klook.com/en-SG/city/14-singapore/' /* + params later */,
-        type: 'klook',
+        label: "Book on Klook",
+        url: "https://www.klook.com/en-SG/city/14-singapore/" /* + params later */,
+        type: "klook",
       },
-      tags: ['ramen', 'noodles', 'lunch deals'],
+      tags: ["ramen", "noodles", "lunch deals"],
     },
     {
-      id: 'bbq-tanjong-02',
-      name: 'Seoul Charcoal BBQ',
-      area: 'CBD',
-      cuisine: 'Korean',
+      id: "bbq-tanjong-02",
+      name: "Seoul Charcoal BBQ",
+      area: "CBD",
+      cuisine: "Korean",
       price: 3,
       rating: 4.3,
-      blurb: 'Premium cuts, smokeless grills, great for groups.',
+      blurb: "Premium cuts, smokeless grills, great for groups.",
       image:
-        'https://images.unsplash.com/photo-1536007164800-b7f11331f35e?q=80&w=1600&auto=format&fit=crop',
+        "https://images.unsplash.com/photo-1536007164800-b7f11331f35e?q=80&w=1600&auto=format&fit=crop",
       affiliate: {
-        label: 'Reserve on Chope',
-        url: 'https://www.chope.co/singapore-restaurants/',
-        type: 'chope',
+        label: "Reserve on Chope",
+        url: "https://www.chope.co/singapore-restaurants/",
+        type: "chope",
       },
-      tags: ['bbq', 'date night', 'group'],
+      tags: ["bbq", "date night", "group"],
     },
     {
-      id: 'dessert-bugis-03',
-      name: 'Snow & Sago',
-      area: 'Bugis',
-      cuisine: 'Desserts',
+      id: "dessert-bugis-03",
+      name: "Snow & Sago",
+      area: "Bugis",
+      cuisine: "Desserts",
       price: 1,
       rating: 4.2,
-      blurb: 'Shaved ice towers, mango sago, wallet-friendly.',
+      blurb: "Shaved ice towers, mango sago, wallet-friendly.",
       image:
-        'https://images.unsplash.com/photo-1460306855393-0410f61241c7?q=80&w=1600&auto=format&fit=crop',
+        "https://images.unsplash.com/photo-1460306855393-0410f61241c7?q=80&w=1600&auto=format&fit=crop",
       affiliate: {
-        label: 'Deals on Klook',
-        url: 'https://www.klook.com/en-SG/city/14-singapore/',
-        type: 'klook',
+        label: "Deals on Klook",
+        url: "https://www.klook.com/en-SG/city/14-singapore/",
+        type: "klook",
       },
-      tags: ['dessert', 'late night', 'sweet'],
+      tags: ["dessert", "late night", "sweet"],
     },
   ],
   posts: [
     {
-      slug: 'best-ramen-orchard',
-      title: '7 Best Ramen Places in Orchard (2025)',
+      slug: "best-ramen-orchard",
+      title: "7 Best Ramen Places in Orchard (2025)",
       summary:
-        'From budget bowls to premium tonkotsu – slurp through Orchard without breaking the bank.',
-      hero: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1600&auto=format&fit=crop',
-      picks: ['Ramen Gokoro', 'Umai Ramen Lab', 'Tonkotsu Street'],
+        "From budget bowls to premium tonkotsu – slurp through Orchard without breaking the bank.",
+      hero:
+        "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1600&auto=format&fit=crop",
+      picks: ["Ramen Gokoro", "Umai Ramen Lab", "Tonkotsu Street"],
     },
     {
-      slug: 'affordable-buffets-under-40',
-      title: '10 Affordable Buffets in SG Under $40',
-      summary: 'All-you-can-eat without the tax shock.',
-      hero: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1600&auto=format&fit=crop',
-      picks: ['Seoul Charcoal BBQ', 'Haru Hotpot', 'Eat-All-Day Noodle Bar'],
+      slug: "affordable-buffets-under-40",
+      title: "10 Affordable Buffets in SG Under $40",
+      summary: "All-you-can-eat without the tax shock.",
+      hero:
+        "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1600&auto=format&fit=crop",
+      picks: ["Seoul Charcoal BBQ", "Haru Hotpot", "Eat-All-Day Noodle Bar"],
     },
   ],
 };
 
 // ---------- HELPERS ----------
 function classNames(...arr) {
-  return arr.filter(Boolean).join(' ');
+  return arr.filter(Boolean).join(" ");
 }
 
 function priceToDollarSigns(n) {
-  return '$'.repeat(n);
+  return "$".repeat(n);
 }
 
 function withAffiliate(baseUrl, type, affiliates) {
-  if (type === 'klook') return baseUrl + affiliates.klook.utm;
-  if (type === 'chope') return baseUrl + affiliates.chope.utm;
+  if (type === "klook") return baseUrl + affiliates.klook.utm;
+  if (type === "chope") return baseUrl + affiliates.chope.utm;
   return baseUrl;
 }
 
 // ---------- MAIN APP ----------
 export default function Page() {
-  const [query, setQuery] = useState('');
-  const [area, setArea] = useState('');
-  const [cuisine, setCuisine] = useState('');
+  const [query, setQuery] = useState("");
+  const [area, setArea] = useState("");
+  const [cuisine, setCuisine] = useState("");
   const [maxPrice, setMaxPrice] = useState(3);
   const brand = SAMPLE_DATA.brand;
 
@@ -148,7 +149,7 @@ export default function Page() {
       const matchesQuery =
         !query ||
         v.name.toLowerCase().includes(query.toLowerCase()) ||
-        v.tags.join(' ').toLowerCase().includes(query.toLowerCase());
+        v.tags.join(" ").toLowerCase().includes(query.toLowerCase());
       const matchesArea = !area || v.area === area;
       const matchesCuisine = !cuisine || v.cuisine === cuisine;
       const matchesPrice = v.price <= maxPrice;
@@ -158,13 +159,11 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+
       {/* Header */}
       <header className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center gap-4">
-          <div
-            className="h-9 w-9 rounded-xl"
-            style={{ background: brand.primaryColor }}
-          />
+          <div className="h-9 w-9 rounded-xl" style={{ background: brand.primaryColor }} />
           <div className="flex-1">
             <h1 className="text-xl font-bold tracking-tight">{brand.name}</h1>
             <p className="text-xs text-gray-500 -mt-1">{brand.tagline}</p>
@@ -182,13 +181,8 @@ export default function Page() {
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-10 grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2">
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-              Eat smarter in Singapore
-            </h2>
-            <p className="mt-2 text-gray-600">
-              Search by area, cuisine, budget, or browse our latest listicles
-              below.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">Eat smarter in Singapore</h2>
+            <p className="mt-2 text-gray-600">Search by area, cuisine, budget, or browse our latest listicles below.</p>
 
             <div className="mt-6 flex items-center gap-3 rounded-2xl border bg-white p-3">
               <Search className="shrink-0" />
@@ -210,9 +204,7 @@ export default function Page() {
               >
                 <option value="">All areas</option>
                 {SAMPLE_DATA.areas.map((a) => (
-                  <option key={a} value={a}>
-                    {a}
-                  </option>
+                  <option key={a} value={a}>{a}</option>
                 ))}
               </select>
               <select
@@ -222,9 +214,7 @@ export default function Page() {
               >
                 <option value="">All cuisines</option>
                 {SAMPLE_DATA.cuisines.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
+                  <option key={c} value={c}>{c}</option>
                 ))}
               </select>
               <div className="rounded-xl border p-2 flex items-center gap-2">
@@ -238,9 +228,7 @@ export default function Page() {
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
                   className="w-full"
                 />
-                <span className="text-sm font-medium tabular-nums">
-                  {priceToDollarSigns(maxPrice)}
-                </span>
+                <span className="text-sm font-medium tabular-nums">{priceToDollarSigns(maxPrice)}</span>
               </div>
             </div>
           </div>
@@ -250,9 +238,7 @@ export default function Page() {
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
               <p className="text-xs uppercase text-gray-500">Sponsored</p>
               <h3 className="mt-1 font-semibold">Feature your restaurant</h3>
-              <p className="mt-1 text-sm text-gray-600">
-                Reach hungry readers actively searching where to eat.
-              </p>
+              <p className="mt-1 text-sm text-gray-600">Reach hungry readers actively searching where to eat.</p>
               <a
                 href="#sponsor"
                 className="mt-3 inline-flex items-center justify-center rounded-xl bg-black px-3 py-2 text-white text-sm hover:opacity-90"
@@ -271,9 +257,7 @@ export default function Page() {
       <section className="mx-auto max-w-6xl px-4 pb-10">
         <div className="flex items-end justify-between">
           <h3 className="text-xl font-bold">Curated picks</h3>
-          <p className="text-sm text-gray-500">
-            {filtered.length} result{filtered.length !== 1 ? 's' : ''}
-          </p>
+          <p className="text-sm text-gray-500">{filtered.length} result{filtered.length !== 1 ? "s" : ""}</p>
         </div>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((v) => (
@@ -308,26 +292,15 @@ export default function Page() {
                   <span>·</span>
                   <span>{priceToDollarSigns(v.price)}</span>
                 </div>
-                <p className="mt-2 text-sm text-gray-700 line-clamp-2">
-                  {v.blurb}
-                </p>
+                <p className="mt-2 text-sm text-gray-700 line-clamp-2">{v.blurb}</p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {v.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600"
-                    >
-                      #{t}
-                    </span>
+                    <span key={t} className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-600">#{t}</span>
                   ))}
                 </div>
                 {v.affiliate?.url && (
                   <a
-                    href={withAffiliate(
-                      v.affiliate.url,
-                      v.affiliate.type,
-                      SAMPLE_DATA.affiliates
-                    )}
+                    href={withAffiliate(v.affiliate.url, v.affiliate.type, SAMPLE_DATA.affiliates)}
                     target="_blank"
                     rel="nofollow noopener"
                     className="mt-4 inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm hover:bg-gray-50"
@@ -348,27 +321,14 @@ export default function Page() {
           <h3 className="text-xl font-bold">Latest listicles</h3>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {SAMPLE_DATA.posts.map((p) => (
-              <article
-                key={p.slug}
-                className="overflow-hidden rounded-2xl border bg-white shadow-sm hover:shadow-md"
-              >
+              <article key={p.slug} className="overflow-hidden rounded-2xl border bg-white shadow-sm hover:shadow-md">
                 <div className="aspect-[16/9] overflow-hidden">
-                  <img
-                    src={p.hero}
-                    alt={p.title}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
+                  <img src={p.hero} alt={p.title} className="h-full w-full object-cover" loading="lazy" />
                 </div>
                 <div className="p-4">
                   <h4 className="font-semibold leading-tight">{p.title}</h4>
-                  <p className="mt-1 text-sm text-gray-700 line-clamp-2">
-                    {p.summary}
-                  </p>
-                  <a
-                    href={`/${p.slug}`}
-                    className="mt-3 inline-flex text-sm text-sky-600 hover:underline"
-                  >
+                  <p className="mt-1 text-sm text-gray-700 line-clamp-2">{p.summary}</p>
+                  <a href={`/${p.slug}`} className="mt-3 inline-flex text-sm text-sky-600 hover:underline">
                     Read the picks →
                   </a>
                 </div>
@@ -386,10 +346,7 @@ export default function Page() {
             <ul className="mt-2 text-sm text-gray-600 list-disc ml-5 space-y-1">
               <li>Connect Google AdSense/Ezoic in the Sponsored card slot.</li>
               <li>Replace affiliate URLs with your Klook/Chope/KKday links.</li>
-              <li>
-                Add <code>rel=\"nofollow sponsored\"</code> on sponsored
-                links/pages.
-              </li>
+              <li>Add <code>rel=&quot;nofollow sponsored&quot;</code> on sponsored links/pages.</li>
             </ul>
           </div>
           <div>
