@@ -122,13 +122,22 @@ const SAMPLE_DATA = {
 };
 
 // ---------- HELPERS ----------
-function classNames(...arr: Array<string | false | null | undefined>) {
+// ---------- HELPERS ----------
+function classNames(
+  ...arr: Array<string | false | null | undefined>
+) {
   return arr.filter(Boolean).join(" ");
 }
+
 function priceToDollarSigns(n: number): string {
   return "$".repeat(n);
 }
-function withAffiliate(baseUrl: string, type: string, affiliates: any): string {
+
+function withAffiliate(
+  baseUrl: string,
+  type: string,
+  affiliates: any
+): string {
   if (type === "klook") return baseUrl + affiliates.klook.utm;
   if (type === "chope") return baseUrl + affiliates.chope.utm;
   return baseUrl;
