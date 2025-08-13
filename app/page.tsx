@@ -122,15 +122,13 @@ const SAMPLE_DATA = {
 };
 
 // ---------- HELPERS ----------
-function classNames(...arr) {
+function classNames(...arr: Array<string | false | null | undefined>) {
   return arr.filter(Boolean).join(" ");
 }
-
-function priceToDollarSigns(n) {
+function priceToDollarSigns(n: number): string {
   return "$".repeat(n);
 }
-
-function withAffiliate(baseUrl, type, affiliates) {
+function withAffiliate(baseUrl: string, type: string, affiliates: any): string {
   if (type === "klook") return baseUrl + affiliates.klook.utm;
   if (type === "chope") return baseUrl + affiliates.chope.utm;
   return baseUrl;
@@ -359,7 +357,7 @@ export default function Page() {
           </div>
         </div>
         <div className="mx-auto max-w-6xl px-4 pb-8 text-xs text-gray-500">
-          © {new Date().getFullYear()} {brand.name}. Made with ♥ in Singapore.
+          © {new Date().getFullYear()} {SAMPLE_DATA.brand.name}. Made with ♥ in Singapore.
         </div>
       </footer>
     </div>
